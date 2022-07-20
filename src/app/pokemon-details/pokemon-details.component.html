@@ -1,4 +1,4 @@
-<div class="extended-data-container" *ngIf="pokemon">
+<div class="pokemon-details-container" *ngIf="pokemon">
 
     <mat-card>
 
@@ -25,7 +25,7 @@
             </div>
           </mat-card-subtitle>
 
-          <img mat-card-xl-image src="{{ pokemon.sprites.other['official-artwork']['front_default'] }}">
+          <img mat-card-xl-image src="{{ pokemon.sprites.other['official-artwork']['front_default'] }}" class="pokemon-picture">
 
         </mat-card-title-group>
 

@@ -86,3 +86,15 @@ mat-card {
 .d-none {
     display: none;
 }
+
+/* For smartphones */
+
+@media (max-width: 600px) {
+    mat-form-field {
+        width: 75vw !important;
+    }
+
+    mat-slide-toggle {
+        display: none;
+    }
+}
