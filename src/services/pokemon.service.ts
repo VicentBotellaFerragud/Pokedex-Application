@@ -11,7 +11,9 @@ export class PokemonService {
   url = 'https://pokeapi.co/api/v2/pokemon/';
 
   getPokemonInfo(id: number) {
+
     return this.http.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
+    
   }
 
 }
