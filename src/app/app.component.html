@@ -1,0 +1,34 @@
+<mat-drawer-container autosize class="fullScreen-height">
+  
+  <mat-toolbar color="primary" class="flex items-center">
+    
+    <button class="menu-btn flex items-center" (click)="drawer.toggle()"> 
+      <mat-icon>menu</mat-icon>
+    </button>
+    
+    <span>Pokédex Application</span>
+
+  </mat-toolbar>
+
+  <mat-drawer #drawer mode="over">
+    
+    <div class="flex items-center justify-center mx-16">
+      <img routerLink="/home" src="assets/img/icons8-pokedex-48.png" (click)="drawer.close(); checkPath()">
+    </div>
+
+    <ul>
+      <li routerLink="/home" (click)="drawer.close(); checkPath()" [class.bg-dark]="path === '/home'">HOME</li>
+      <li routerLink="/pokedex" (click)="drawer.close(); checkPath()" [class.bg-dark]="path === '/pokedex' || path.includes('/pokedex/')">POKÉDEX</li>
+      <li routerLink="/about" (click)="drawer.close(); checkPath()" [class.bg-dark]="path === '/about'">ABOUT</li>
+      <li routerLink="/help" (click)="drawer.close(); checkPath()" [class.bg-dark]="path === '/help'">HELP</li>
+    </ul>
+
+  </mat-drawer>
+
+  <div class="p-16 router-outlet-container">
+
+    <router-outlet></router-outlet>
+
+  </div>
+
+</mat-drawer-container>

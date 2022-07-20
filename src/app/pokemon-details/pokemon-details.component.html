@@ -1,0 +1,106 @@
+<div class="extended-data-container" *ngIf="pokemon">
+
+    <mat-card>
+
+        <mat-card-title-group>
+
+          <mat-card-title>{{ pokemon.name | titlecase }}</mat-card-title>
+
+          <mat-card-subtitle [ngSwitch]="pokemon.id.toString().length">
+            <span *ngSwitchCase="1">#00{{ pokemon.id }}</span>
+            <span *ngSwitchCase="2">#0{{ pokemon.id }}</span>
+            <span *ngSwitchCase="3">#{{ pokemon.id }}</span>
+          </mat-card-subtitle>
+
+          <mat-card-subtitle [ngSwitch]="pokemon.types.length">
+            <div *ngSwitchCase="1">
+                <span class="type-span" [ngStyle]="{'background-color': setTypeBgColor(pokemon.types[0].type.name)}" 
+                [ngClass]="setTypeTextColor(pokemon.types[0].type.name)">{{ pokemon.types[0].type.name | titlecase }}</span>
+            </div>
+            <div *ngSwitchCase="2">
+                <span class="type-span" [ngStyle]="{'background-color': setTypeBgColor(pokemon.types[0].type.name)}" 
+                [ngClass]="setTypeTextColor(pokemon.types[0].type.name)">{{ pokemon.types[0].type.name | titlecase }}</span>
+                <span class="type-span" [ngStyle]="{'background-color': setTypeBgColor(pokemon.types[1].type.name)}" 
+                [ngClass]="setTypeTextColor(pokemon.types[1].type.name)">{{ pokemon.types[1].type.name | titlecase }}</span>
+            </div>
+          </mat-card-subtitle>
+
+          <img mat-card-xl-image src="{{ pokemon.sprites.other['official-artwork']['front_default'] }}">
+
+        </mat-card-title-group>
+
+        <mat-card-content>
+          
+            <mat-tab-group mat-align-tabs="start">
+                
+                <mat-tab label="Features">
+                    <div class="mb-8">
+                        <span>Id in the national pokédex (pokédex that includes all pokemon of all generations): <b>{{ pokemon.order }}.</b></span>
+                    </div>
+                    <div class="mb-8">
+                        <span>Base experience: <b>{{ pokemon.base_experience }} points.</b></span>
+                    </div>
+                    <div class="mb-8">
+                        <span>Height: <b>{{ pokemon.height / 10 }} m.</b></span>
+                    </div>
+                    <div class="mb-8">
+                        <span>Weigth: <b>{{ pokemon.weight / 10 }} kg.</b></span>
+                    </div>
+                    <div class="mb-8" [ngSwitch]="pokemon.abilities.length">
+                        <div *ngSwitchCase="1">
+                            <span>Ability: <b>{{ pokemon.abilities[0]['ability']['name'] }}.</b></span>
+                        </div>
+                        <div *ngSwitchCase="2">
+                            <span>Abilities: <b>{{ pokemon.abilities[0]['ability']['name'] }}, {{ pokemon.abilities[1]['ability']['name'] }}.</b></span>
+                        </div>
+                        <div *ngSwitchCase="3">
+                            <span>Abilities: <b>{{ pokemon.abilities[0]['ability']['name'] }}, {{ pokemon.abilities[1]['ability']['name'] }},
+                                {{ pokemon.abilities[2]['ability']['name'] }}.</b></span>
+                        </div>
+                    </div>
+                    <div class="mb-8">
+                        <span>Number of moves that the pokemon can learn: <b>{{ pokemon.moves.length }}.</b></span>
+                    </div>
+                    <div class="mb-8" [ngSwitch]="pokemon.held_items.length">
+                        <div *ngSwitchCase="0">
+                            <span>Has it got any held items by default? <b>No.</b></span>
+                        </div>
+                        <div *ngSwitchCase="1">
+                            <span>Has it got any held items by default? <b>Yes: {{ pokemon.held_items[0]['item']['name'] }}.</b></span>
+                        </div>
+                        <div *ngSwitchCase="2">
+                            <span>Has it got any held items by default? <b>Yes: {{ pokemon.held_items[0]['item']['name'] }} and {{ pokemon.held_items[1]['item']['name'] }}.</b></span>
+                        </div>
+                        <div *ngSwitchCase="3">
+                            <span>Has it got any held items by default? <b>Yes: {{ pokemon.held_items[0]['item']['name'] }}, {{ pokemon.held_items[1]['item']['name'] }} 
+                                and {{ pokemon.held_items[2]['item']['name'] }}.</b></span>
+                        </div>
+                    </div>
+                </mat-tab>
+                
+                <mat-tab label="Stats">
+                    <div *ngFor="let stat of pokemon.stats" class="mb-8">
+                        <span>{{stat.stat.name | titlecase }}: <b>{{ stat.base_stat }}</b></span>
+                        <mat-progress-bar mode="determinate" value="{{ stat.base_stat * 0.5 }}"></mat-progress-bar>
+                    </div>
+                </mat-tab>
+
+            </mat-tab-group>
+
+        </mat-card-content>
+
+    </mat-card>
+
+    <div class="btns-container">
+
+        <button mat-fab color="primary" (click)="goPrevious()" *ngIf="pokemonId !== 1">
+            <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+        <button mat-button color="primary" (click)="goBack()">Back to the pokédex</button>
+        <button mat-fab color="primary" (click)="goNext()" *ngIf="pokemonId !== 151">
+            <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+
+    </div>
+
+</div>

@@ -1,0 +1,63 @@
+<div class="spinner-container" *ngIf="!loadedAndSorted">
+    
+    <mat-spinner></mat-spinner>
+
+    <p>Loading pokémon data...</p>
+
+</div>
+
+<div class="pokedex-container" *ngIf="loadedAndSorted">
+    
+    <div class="form-container">
+
+        <form  [formGroup]="form">
+    
+            <mat-form-field appearance="fill">
+                <mat-label>Search for a pokémon</mat-label>
+                <input matInput formControlName="pokemonSearch">
+                <button mat-icon-button matSuffix><mat-icon>search</mat-icon></button>
+            </mat-form-field>
+
+        </form>
+
+        <mat-slide-toggle [color]="color" (click)="turnOnAnimations()">Turn on the animations!</mat-slide-toggle>
+
+    </div>
+
+    <div class="pokemons-container">
+    
+        <mat-card *ngFor="let pokemon of pokemonsArr; index as i" (click)="showPokemonDetails(pokemon)">
+            
+            <mat-card-title>{{ pokemon.name | titlecase }}</mat-card-title>
+            
+            <mat-card-subtitle [ngSwitch]="pokemon.id.toString().length">
+                <span *ngSwitchCase="1">#00{{ pokemon.id }}</span>
+                <span *ngSwitchCase="2">#0{{ pokemon.id }}</span>
+                <span *ngSwitchCase="3">#{{ pokemon.id }}</span>
+            </mat-card-subtitle>
+            
+            <div *ngIf="!animationsOn">
+                <img id="pokemon-picture-{{ i + 1 }}" src="{{ pokemon.sprites.front_default }}">
+            </div>
+            <div *ngIf="animationsOn">
+                <img id="pokemon-picture-{{ i + 1 }}" src="{{ pokemon.sprites.versions['generation-v']['black-white']['animated']['front_default'] }}" class="animated-pic">
+            </div>
+
+            <div [ngSwitch]="pokemon.types.length">      
+                <div *ngSwitchCase="1">
+                    <span class="type-span" [ngStyle]="{'background-color': setTypeBgColor(pokemon.types[0].type.name)}" 
+                    [ngClass]="setTypeTextColor(pokemon.types[0].type.name)">{{ pokemon.types[0].type.name | titlecase }}</span>
+                </div>
+                <div *ngSwitchCase="2">
+                    <span class="type-span" [ngStyle]="{'background-color': setTypeBgColor(pokemon.types[0].type.name)}" 
+                    [ngClass]="setTypeTextColor(pokemon.types[0].type.name)">{{ pokemon.types[0].type.name | titlecase }}</span>
+                    <span class="type-span" [ngStyle]="{'background-color': setTypeBgColor(pokemon.types[1].type.name)}" 
+                    [ngClass]="setTypeTextColor(pokemon.types[1].type.name)">{{ pokemon.types[1].type.name | titlecase }}</span>
+                </div>
+            </div>
+
+        </mat-card>
+
+    </div>
+
+</div>
