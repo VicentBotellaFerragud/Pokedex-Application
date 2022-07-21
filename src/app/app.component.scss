@@ -57,3 +57,17 @@ ul {
     height: calc(100vh - 96px);
     overflow: auto;
 }
+
+.router-outlet-container-home {
+    height: calc(100vh - 64px);
+    padding: 0;
+}
+
+/* For smartphones */
+
+@media (max-width: 599px) {
+    .router-outlet-container-home {
+        height: calc(100vh - 56px);
+        padding: 0;
+    }
+}

@@ -1,0 +1,37 @@
+.home-container {
+    height: 100%;
+}
+
+.greeting-container {
+    padding: 16px;
+    width: 50vw;
+    color: black;
+    text-align: center;
+
+    h2 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* For smartphones */
+
+@media (max-width: 950px) {
+    .greeting-container {
+        width: unset;
+    
+        h2 {
+            font-size: 18px;
+        }
+    }
+}
+
+@media (max-width: 300px) {
+    .greeting-container {
+    
+        h2 {
+            font-size: 16px;
+        }
+    }
+}

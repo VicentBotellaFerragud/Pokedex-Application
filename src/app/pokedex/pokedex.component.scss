@@ -89,12 +89,19 @@ mat-card {
 
 /* For smartphones */
 
-@media (max-width: 600px) {
+@media (max-width: 599px) {
     mat-form-field {
         width: 75vw !important;
     }
 
     mat-slide-toggle {
         display: none;
+    }
+}
+
+@media (max-width: 320px) {
+    mat-card {
+        margin: 0;
+        margin-block: .5rem;
     }
 }

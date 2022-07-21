@@ -38,11 +38,13 @@ mat-progress-bar {
 
 /* For smartphones */
 
-@media (max-width: 600px) {
+@media (max-width: 1100px) {
     mat-card {
         width: 90%;
     }
+}
 
+@media (max-width: 599px) {
     mat-card-title-group {
         display: flex;
         justify-content: center;

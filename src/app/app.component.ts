@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentChecked, AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements AfterContentChecked {
 
   title = 'Pokedex-Application';
 
@@ -14,14 +14,17 @@ export class AppComponent implements OnInit {
 
   constructor(private router: Router) { }
 
-  ngOnInit(): void {
+
+  ngAfterContentChecked(): void { //Works better than ngOnInit or ngAfterViewInit. These last two functions are called too fast 
+                                  //for the app to read the current path correctly.
     this.checkPath();
+
   }
 
   checkPath() {
-    setTimeout(() => {
-      this.path = this.router.url;
-    }, 250);
+
+    this.path = this.router.url;
+   
   }
 
 }
