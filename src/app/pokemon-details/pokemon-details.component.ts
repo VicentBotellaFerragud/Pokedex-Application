@@ -45,7 +45,7 @@ export class PokemonDetailsComponent implements OnInit {
         let id = Number(params.get('id'));
         this.pokemonId = id;
 
-        if (Number(this.pokemonId) <= 0 || Number(this.pokemonId) > 151 ) {
+        if (Number(this.pokemonId) <= 0 || Number(this.pokemonId) > 151) {
           this.pokemonIdWithinLimit = false;
         }
 

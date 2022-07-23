@@ -22,6 +22,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     PokedexComponent,
     AboutComponent,
     HelpComponent,
-    PokemonDetailsComponent
+    PokemonDetailsComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
