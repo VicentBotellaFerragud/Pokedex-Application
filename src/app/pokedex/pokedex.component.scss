@@ -96,7 +96,7 @@ mat-card {
     margin-inline: .25rem;
 }
 
-/* If I put this class in the "styles.scss" file the component can't make use of it. */
+//If I put this class in the "styles.scss" file the component can't make use of it.
 .d-none {
     display: none;
 }
