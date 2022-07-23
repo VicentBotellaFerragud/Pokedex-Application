@@ -38,10 +38,18 @@ export class PokemonDetailsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private router: Router, private pokemonService: PokemonService) { }
 
+  /**
+   * Reads the url path and takes its id in order to assign it to the local variable 'pokemonId'. This id is needed in order to
+   * properly* call the getPokemonInfo function (called right after the id is assigned to the local variable 'pokemonId') from the 
+   * pokemon service.
+   * 
+   * * By properly is meant that the getPokemonInfo function has to get the Pokémon data whose id matches the url id.
+   */
   ngOnInit(): void {
 
     this.route.paramMap
       .subscribe((params: ParamMap) => {
+
         let id = Number(params.get('id'));
         this.pokemonId = id;
 
@@ -53,11 +61,19 @@ export class PokemonDetailsComponent implements OnInit {
 
     this.pokemonService.getPokemonInfo(this.pokemonId)
       .subscribe((data: any) => {
+
         this.pokemon = data;
+
       });
 
   }
 
+  /**
+   * Sets the background color of each 'type-span' by comparing the passed type with a set of values (the 'colors' array values).
+   * Returns one 'typeCode' or another depending on the comparison result.
+   * @param type - This is the type that's passed in the html file. The function needs it to make the comparison.
+   * @returns - (in code) the background color. 
+   */
   setTypeBgColor(type: string) {
 
     for (let i = 0; i < Object.entries(this.colors).length; i++) {
@@ -72,6 +88,12 @@ export class PokemonDetailsComponent implements OnInit {
 
   }
 
+  /**
+   * Sets the text color of each 'type-span' by comparing the passed type with a set of values. Returns 'black' or 'white' 
+   * depending on the comparison result.
+   * @param type - This is the type that's passed in the html file. The function needs it to make the comparison.
+   * @returns - 'black' or 'white'.
+   */
   setTypeTextColor(type: string) {
 
     if (type === 'grass' || type === 'flying' || type === 'normal' || type === 'electric' || type === 'ground' || type === 'fairy' || type === 'steel' || type === 'ice') {
@@ -82,6 +104,10 @@ export class PokemonDetailsComponent implements OnInit {
 
   }
 
+  /**
+   * Navigates the user to the previous Pokémon detailed view and also calls the getPokemonInfo function from the pokemon service.
+   * The function takes the id parameter required by the navigate and getPokemonInfo functions from the local variable 'pokemonId'.
+   */
   goPrevious() {
 
     let previousId = Number(this.pokemonId) - 1;
@@ -89,11 +115,17 @@ export class PokemonDetailsComponent implements OnInit {
 
     this.pokemonService.getPokemonInfo(previousId)
       .subscribe((data: any) => {
+
         this.pokemon = data;
+
       });
       
   }
 
+  /**
+   * Navigates the user to the next Pokémon detailed view and also calls the getPokemonInfo function from the pokemon service.
+   * The function takes the id parameter required by the navigate and getPokemonInfo functions from the local variable 'pokemonId'.
+   */
   goNext() {
 
     let nextId = Number(this.pokemonId) + 1;
@@ -101,11 +133,16 @@ export class PokemonDetailsComponent implements OnInit {
 
     this.pokemonService.getPokemonInfo(nextId)
       .subscribe((data: any) => {
+
         this.pokemon = data;
+        
       });
 
   }
 
+  /**
+   * Navigates the user back to the Pokédex view.
+   */
   goBack() {
 
     this.router.navigate(['/pokedex']);

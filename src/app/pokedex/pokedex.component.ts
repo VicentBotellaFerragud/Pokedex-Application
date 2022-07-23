@@ -50,6 +50,10 @@ export class PokedexComponent implements OnInit {
 
   constructor(private pokemonService: PokemonService, private router: Router) { }
 
+  /**
+   * Calls the loadPokemons function to get the info of all 151 first generation Pokémon. Also listens to any search the user makes
+   * and hides the Pokémon whose names don't match it.
+   */
   ngOnInit(): void {
 
     setTimeout(() => {
@@ -77,6 +81,13 @@ export class PokedexComponent implements OnInit {
 
   }
 
+  /**
+   * Calls the getPokemonInfo function from the pokemon service 'finalPokemon' minus 'initalPokemon' times and pushes the received
+   * data into the 'pokemonArray' (always into the 'pokemonsArr' arr). Also calls the sortPokemons function to sort the 'pokemonArray'.
+   * @param initalPokemon -This is the first pokemon (actually its id) on which the getPokemonInfo function is called.
+   * @param finalPokemon -This is the last pokemon (actually its id) on which the getPokemonInfo function is called. 
+   * @param pokemonArray - This is the array in which the received data is pushed into.
+   */
   loadPokemons(initalPokemon: number, finalPokemon: number, pokemonArray: any[]) {
     
     for (let i = initalPokemon; i < finalPokemon; i++) {
@@ -89,12 +100,17 @@ export class PokedexComponent implements OnInit {
           }
 
           this.sortPokemons(pokemonArray);
+
         });
 
     }
 
   }
 
+  /**
+   * Sorts all Pokémon in ascending order (uses their id as a reference).
+   * @param pokemonArray - This is the array (it's always the 'pokemonsArr' arr) whose elements the function sorts.
+   */
   sortPokemons(pokemonArray: any[]) {
 
     pokemonArray.sort((a, b) => parseFloat(a.id) - parseFloat(b.id));
@@ -105,6 +121,12 @@ export class PokedexComponent implements OnInit {
 
   }
 
+  /**
+   * Sets the background color of each 'type-span' by comparing the passed type with a set of values (the 'colors' array values).
+   * Returns one 'typeCode' or another depending on the comparison result.
+   * @param type - This is the type that's passed in the html file. The function needs it to make the comparison.
+   * @returns - (in code) the background color. 
+   */
   setTypeBgColor(type: string) {
 
     for (let i = 0; i < Object.entries(this.colors).length; i++) {
@@ -119,6 +141,12 @@ export class PokedexComponent implements OnInit {
 
   }
 
+  /**
+   * Sets the text color of each 'type-span' by comparing the passed type with a set of values. Returns 'black' or 'white' 
+   * depending on the comparison result.
+   * @param type - This is the type that's passed in the html file. The function needs it to make the comparison.
+   * @returns - 'black' or 'white'.
+   */
   setTypeTextColor(type: string) {
 
     if (type === 'grass' || type === 'flying' || type === 'normal' || type === 'electric' || type === 'ground' || type === 'fairy' || type === 'steel' || type === 'ice') {
@@ -129,7 +157,10 @@ export class PokedexComponent implements OnInit {
 
   }
 
-  turnOnAnimations() {
+  /**
+   * Turns on or off the Pokémon animations depending on the value of the local variable 'count'.
+   */
+  turnOnOrOffAnimations() {
 
     if (this.count === 0 || this.count % 2 === 0) {
       this.animationsOn = true;
@@ -141,6 +172,11 @@ export class PokedexComponent implements OnInit {
 
   }
 
+  /**
+   * Navigates the user to the Pokémon detailed view.
+   * @param pokemon - This is the Pokémon whose id is needed in order to display the right (corresponding to the pokemon clicked by the 
+   * user) Pokémon detailed view.
+   */
   showPokemonDetails(pokemon: any) {
 
     this.router.navigate(['/pokedex', pokemon.id]);
