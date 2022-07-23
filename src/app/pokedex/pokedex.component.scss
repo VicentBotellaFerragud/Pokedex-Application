@@ -26,6 +26,10 @@
     align-items: center;
     z-index: 9998;
 
+    form {
+        margin-right: 2.5rem;
+    }
+
     mat-form-field {
         width: 25vw;
     
@@ -35,13 +39,23 @@
     }
 
     mat-slide-toggle {
+        margin-right: 4.5rem;
         padding-bottom: 1.34375em;
-        margin-left: 2.5rem;
 
         ::ng-deep .mat-slide-toggle-content {
             overflow: unset;
         }
     }
+}
+
+.menu-btn {
+    margin-right: 2.5rem;
+    margin-bottom: 1.34375em;
+}
+
+//It doesn't work If I put it inside the 'menu-btn' class.
+::ng-deep .mat-menu-content {
+    background-color: #3B444B;
 }
 
 .pokemons-container {
@@ -90,11 +104,19 @@ mat-card {
 /* For smartphones */
 
 @media (max-width: 599px) {
+    form {
+        margin-right: 0 !important;
+    }
+
     mat-form-field {
         width: 75vw !important;
     }
 
     mat-slide-toggle {
+        display: none;
+    }
+
+    .menu-btn {
         display: none;
     }
 }

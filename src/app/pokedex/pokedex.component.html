@@ -10,6 +10,21 @@
     
     <div class="form-container">
 
+        <button mat-button [matMenuTriggerFor]="menu" [matTooltipPosition]="'left'" class="menu-btn"
+        matTooltip="Note that when you click on a Pokémon to view its details, the app will automatically sort
+        all the Pokémon again according to their ids.">
+            Order
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="sortPokemons(pokemonsArr)">by id</button>
+            <button mat-menu-item (click)="sortPokemonsAccordingTo(pokemonsArr, 0)">by health points</button>
+            <button mat-menu-item (click)="sortPokemonsAccordingTo(pokemonsArr, 1)">by attack points</button>
+            <button mat-menu-item (click)="sortPokemonsAccordingTo(pokemonsArr, 2)">by defense points</button>
+            <button mat-menu-item (click)="sortPokemonsAccordingTo(pokemonsArr, 3)">by special-attack points</button>
+            <button mat-menu-item (click)="sortPokemonsAccordingTo(pokemonsArr, 4)">by special-defense points</button>
+            <button mat-menu-item (click)="sortPokemonsAccordingTo(pokemonsArr, 5)">by speed points</button>
+        </mat-menu>
+
         <form  [formGroup]="form">
     
             <mat-form-field appearance="fill">

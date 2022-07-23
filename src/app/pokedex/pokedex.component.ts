@@ -59,14 +59,14 @@ export class PokedexComponent implements OnInit {
     setTimeout(() => {
       this.loadPokemons(1, 152, this.pokemonsArr);
     }, 2500);
-    
+
     this.form.get('pokemonSearch')?.valueChanges
       .subscribe((searchValue: string) => {
 
         let pokecardsList = document.querySelectorAll(".mat-card");
-        
+
         pokecardsList.forEach(pokecard => {
-          
+
           let pokecardTitle = (pokecard.childNodes[0].childNodes[0].nodeValue)?.toLowerCase();
           let pokecardAsHtmlElement = pokecard as HTMLElement;
 
@@ -89,9 +89,9 @@ export class PokedexComponent implements OnInit {
    * @param pokemonArray - This is the array in which the received data is pushed into.
    */
   loadPokemons(initalPokemon: number, finalPokemon: number, pokemonArray: any[]) {
-    
+
     for (let i = initalPokemon; i < finalPokemon; i++) {
-      
+
       this.pokemonService.getPokemonInfo(i)
         .subscribe((data: any) => {
 
@@ -108,7 +108,7 @@ export class PokedexComponent implements OnInit {
   }
 
   /**
-   * Sorts all Pokémon in ascending order (uses their id as a reference).
+   * Sorts the Pokémon in ascending order (uses their id as a reference).
    * @param pokemonArray - This is the array (it's always the 'pokemonsArr' arr) whose elements the function sorts.
    */
   sortPokemons(pokemonArray: any[]) {
@@ -154,6 +154,20 @@ export class PokedexComponent implements OnInit {
     } else {
       return 'white';
     }
+
+  }
+
+  /**
+   * Sorts the Pokémon in descending order based on the 'indexPosition' parameter. This parameter corresponds to the index of a 
+   * particular ability in the 'stats' array (For example --> indexPosition 0 = stats[0], the app sorts Pokémon based on their 
+   * health points in this case because stats[0] corresponds to the Pokémon's health points. 'base_stat' is the amount of points 
+   * the Pokémon has for the skill stats[indexPosition]['name'].
+   * @param pokemonArray - This is the array (it's always the 'pokemonsArr' arr) whose elements the function sorts.
+   * @param indexPosition - This is the index that corresponds to a certain ability in the 'stats' array.
+   */
+  sortPokemonsAccordingTo(pokemonArray: any[], indexPosition: number) {
+
+    pokemonArray.sort((a, b) => parseFloat(b.stats[indexPosition]['base_stat']) - parseFloat(a.stats[indexPosition]['base_stat']));
 
   }
 

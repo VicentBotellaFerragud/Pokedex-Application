@@ -23,6 +23,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     MatSlideToggleModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatMenuModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]
