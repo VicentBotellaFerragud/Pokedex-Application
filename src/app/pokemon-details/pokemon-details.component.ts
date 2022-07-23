@@ -11,6 +11,8 @@ export class PokemonDetailsComponent implements OnInit {
 
   pokemonId!: number;
 
+  pokemonIdWithinLimit: boolean = true;
+
   pokemon: any;
 
   colors = {
@@ -42,6 +44,11 @@ export class PokemonDetailsComponent implements OnInit {
       .subscribe((params: ParamMap) => {
         let id = Number(params.get('id'));
         this.pokemonId = id;
+
+        if (Number(this.pokemonId) <= 0 || Number(this.pokemonId) > 151 ) {
+          this.pokemonIdWithinLimit = false;
+        }
+
       });
 
     this.pokemonService.getPokemonInfo(this.pokemonId)

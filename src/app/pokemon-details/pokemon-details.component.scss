@@ -1,3 +1,15 @@
+.warning-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: justify;
+
+    h1 {
+        text-align: center;
+    }
+}
+
 .pokemon-details-container {
     height: 100%;
     display: flex;

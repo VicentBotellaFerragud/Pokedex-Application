@@ -1,4 +1,10 @@
-<div class="pokemon-details-container" *ngIf="pokemon">
+<div class="warning-container" *ngIf="!pokemonIdWithinLimit">
+
+    <h1>Please enter a Pokémon id between 1 and 151 (both inclusive).</h1>
+
+</div>
+
+<div class="pokemon-details-container" *ngIf="pokemon && pokemonIdWithinLimit">
 
     <mat-card>
 
