@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { PokemonService } from 'src/services/pokemon.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { PokemonService } from 'src/services/pokemon.service';
   templateUrl: './pokedex.component.html',
   styleUrls: ['./pokedex.component.scss']
 })
-export class PokedexComponent implements OnInit {
+export class PokedexComponent implements OnInit, OnDestroy {
 
   loadedAndSorted: boolean = false;
 
@@ -48,6 +49,8 @@ export class PokedexComponent implements OnInit {
     fairy: '#D685AD'
   };
 
+  destroy = new Subject();
+
   constructor(private pokemonService: PokemonService, private router: Router) { }
 
   /**
@@ -61,6 +64,7 @@ export class PokedexComponent implements OnInit {
     }, 2500);
 
     this.form.get('pokemonSearch')?.valueChanges
+      .pipe(takeUntil(this.destroy))
       .subscribe((searchValue: string) => {
 
         let pokecardsList = document.querySelectorAll(".mat-card");
@@ -93,6 +97,7 @@ export class PokedexComponent implements OnInit {
     for (let i = initalPokemon; i < finalPokemon; i++) {
 
       this.pokemonService.getPokemonInfo(i)
+        .pipe(takeUntil(this.destroy))
         .subscribe((data: any) => {
 
           if (pokemonArray.length === 0 || pokemonArray.length < finalPokemon - initalPokemon) {
@@ -194,6 +199,15 @@ export class PokedexComponent implements OnInit {
   showPokemonDetails(pokemon: any) {
 
     this.router.navigate(['/pokedex', pokemon.id]);
+
+  }
+
+  /**
+   * Sets the local variable "destroy" to "true" so that all observables in the component are unsubscribed when this is "destroyed".
+   */
+  ngOnDestroy(): void {
+    
+    this.destroy.next(true);
 
   }
 

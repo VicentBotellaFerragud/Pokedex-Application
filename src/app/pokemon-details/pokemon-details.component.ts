@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { PokemonService } from 'src/services/pokemon.service';
 
 @Component({
@@ -7,7 +8,7 @@ import { PokemonService } from 'src/services/pokemon.service';
   templateUrl: './pokemon-details.component.html',
   styleUrls: ['./pokemon-details.component.scss']
 })
-export class PokemonDetailsComponent implements OnInit {
+export class PokemonDetailsComponent implements OnInit, OnDestroy {
 
   pokemonId!: number;
 
@@ -36,6 +37,8 @@ export class PokemonDetailsComponent implements OnInit {
     fairy: '#D685AD'
   };
 
+  destroy = new Subject();
+
   constructor(private route: ActivatedRoute, private router: Router, private pokemonService: PokemonService) { }
 
   /**
@@ -48,6 +51,7 @@ export class PokemonDetailsComponent implements OnInit {
   ngOnInit(): void {
 
     this.route.paramMap
+      .pipe(takeUntil(this.destroy))
       .subscribe((params: ParamMap) => {
 
         let id = Number(params.get('id'));
@@ -60,6 +64,7 @@ export class PokemonDetailsComponent implements OnInit {
       });
 
     this.pokemonService.getPokemonInfo(this.pokemonId)
+      .pipe(takeUntil(this.destroy))
       .subscribe((data: any) => {
 
         this.pokemon = data;
@@ -114,6 +119,7 @@ export class PokemonDetailsComponent implements OnInit {
     this.router.navigate(['/pokedex', previousId]);
 
     this.pokemonService.getPokemonInfo(previousId)
+      .pipe(takeUntil(this.destroy))
       .subscribe((data: any) => {
 
         this.pokemon = data;
@@ -132,6 +138,7 @@ export class PokemonDetailsComponent implements OnInit {
     this.router.navigate(['/pokedex', nextId]);
 
     this.pokemonService.getPokemonInfo(nextId)
+      .pipe(takeUntil(this.destroy))
       .subscribe((data: any) => {
 
         this.pokemon = data;
@@ -146,6 +153,15 @@ export class PokemonDetailsComponent implements OnInit {
   goBack() {
 
     this.router.navigate(['/pokedex']);
+
+  }
+
+  /**
+   * Sets the local variable "destroy" to "true" so that all observables in the component are unsubscribed when this is "destroyed".
+   */
+  ngOnDestroy(): void {
+    
+    this.destroy.next(true);
 
   }
 
