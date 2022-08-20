@@ -64,7 +64,6 @@ export class PokedexComponent implements OnInit, OnDestroy {
     }, 2500);
 
     this.form.get('pokemonSearch')?.valueChanges
-      .pipe(takeUntil(this.destroy))
       .subscribe((searchValue: string) => {
 
         let pokecardsList = document.querySelectorAll(".mat-card");

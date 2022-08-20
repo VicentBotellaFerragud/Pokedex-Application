@@ -51,7 +51,6 @@ export class PokemonDetailsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.route.paramMap
-      .pipe(takeUntil(this.destroy))
       .subscribe((params: ParamMap) => {
 
         let id = Number(params.get('id'));
